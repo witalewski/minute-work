@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  Platform,
-  StatusBar,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import { StatusBar, useWindowDimensions } from 'react-native';
+import { View } from 'uniwind/components';
 
 import { AppFooter } from './src/components/AppFooter';
 import { AppHeader } from './src/components/AppHeader';
@@ -20,9 +15,15 @@ export default function App() {
   const timer = useEmomTimer();
 
   return (
-    <View style={styles.app}>
+    <View className="min-h-full flex-1 bg-[#F7F4ED]">
       <StatusBar barStyle="dark-content" backgroundColor="#F7F4ED" />
-      <View style={[styles.shell, compact && styles.shellCompact]}>
+      <View
+        className={`w-full max-w-[980px] flex-1 self-center pb-6 ${
+          compact
+            ? 'px-5 pt-[22px] ios:pt-[52px]'
+            : 'px-10 pt-8 ios:pt-[58px]'
+        }`}
+      >
         <AppHeader />
 
         {timer.status === 'setup' ? (
@@ -53,24 +54,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  app: {
-    flex: 1,
-    minHeight: '100%',
-    backgroundColor: '#F7F4ED',
-  },
-  shell: {
-    flex: 1,
-    width: '100%',
-    maxWidth: 980,
-    alignSelf: 'center',
-    paddingTop: Platform.OS === 'ios' ? 58 : 32,
-    paddingHorizontal: 40,
-    paddingBottom: 24,
-  },
-  shellCompact: {
-    paddingTop: Platform.OS === 'ios' ? 52 : 22,
-    paddingHorizontal: 20,
-  },
-});

@@ -1,4 +1,5 @@
 import {AppRegistry} from 'react-native';
+import './src/generated/uniwind.web.css';
 import App from './App';
 
 const appName = 'EmomTimer';

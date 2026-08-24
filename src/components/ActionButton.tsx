@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, Text } from 'uniwind/components';
 
 type ActionButtonProps = {
   label: string;
@@ -12,67 +12,25 @@ export function ActionButton({
   onPress,
   variant = 'primary',
 }: ActionButtonProps) {
-  const variantStyle =
+  const buttonVariant =
     variant === 'primary'
-      ? styles.primaryButton
+      ? 'border-[#FF5538] bg-[#FF5538]'
       : variant === 'danger'
-      ? styles.dangerButton
-      : styles.secondaryButton;
-  const textStyle =
+      ? 'border-[#CCC7BE] bg-transparent'
+      : 'border-[#CCC7BE] bg-white';
+  const textVariant =
     variant === 'primary'
-      ? styles.primaryButtonText
-      : styles.secondaryButtonText;
+      ? 'text-white'
+      : 'text-[#292825]';
 
   return (
     <Pressable
       accessibilityLabel={label}
       accessibilityRole="button"
+      className={`min-h-14 flex-1 items-center justify-center rounded-xl border px-5 active:scale-[0.99] active:opacity-[0.74] ${buttonVariant}`}
       onPress={onPress}
-      style={({ pressed }) => [
-        styles.actionButton,
-        variantStyle,
-        pressed && styles.buttonPressed,
-      ]}
     >
-      <Text style={[styles.actionButtonText, textStyle]}>{label}</Text>
+      <Text className={`text-[15px] font-[800] ${textVariant}`}>{label}</Text>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  actionButton: {
-    minHeight: 56,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    borderWidth: 1,
-    paddingHorizontal: 20,
-  },
-  primaryButton: {
-    backgroundColor: '#FF5538',
-    borderColor: '#FF5538',
-  },
-  secondaryButton: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#CCC7BE',
-  },
-  dangerButton: {
-    backgroundColor: 'transparent',
-    borderColor: '#CCC7BE',
-  },
-  buttonPressed: {
-    opacity: 0.74,
-    transform: [{ scale: 0.99 }],
-  },
-  actionButtonText: {
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  primaryButtonText: {
-    color: '#FFFFFF',
-  },
-  secondaryButtonText: {
-    color: '#292825',
-  },
-});

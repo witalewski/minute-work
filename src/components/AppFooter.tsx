@@ -1,32 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'uniwind/components';
 
 export function AppFooter() {
   return (
-    <View style={styles.footer}>
-      <Text style={styles.footerText}>ONE MINUTE. ONE JOB.</Text>
-      <Text style={styles.footerMeta}>No account · No distractions</Text>
+    <View className="flex-row items-center justify-between border-t border-[#D8D3C8] pt-4">
+      <Text className="text-[9px] font-[900] tracking-[1.4px] text-[#6D6962]">
+        ONE MINUTE. ONE JOB.
+      </Text>
+      <Text className="text-[10px] text-[#9A958C]">
+        No account · No distractions
+      </Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#D8D3C8',
-    paddingTop: 16,
-  },
-  footerText: {
-    color: '#6D6962',
-    fontSize: 9,
-    fontWeight: '900',
-    letterSpacing: 1.4,
-  },
-  footerMeta: {
-    color: '#9A958C',
-    fontSize: 10,
-  },
-});

@@ -1,62 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'uniwind/components';
 
 export function AppHeader() {
   return (
-    <View style={styles.header}>
-      <View style={styles.brandMark}>
-        <View style={styles.brandMarkInner} />
+    <View className="min-h-[46px] flex-row items-center border-b border-[#D8D3C8] pb-[15px]">
+      <View className="mr-2.5 h-6 w-6 items-center justify-center rounded-full bg-[#FF5538]">
+        <View className="h-2 w-2 rounded-full bg-[#F7F4ED]" />
       </View>
-      <Text style={styles.brand}>Minute Work</Text>
-      <View style={styles.headerBadge}>
-        <Text style={styles.headerBadgeText}>EMOM</Text>
+      <Text className="flex-1 text-lg font-[800] tracking-[-0.4px] text-[#20201E]">
+        Minute Work
+      </Text>
+      <View className="rounded-full border border-[#BDB8AE] px-2.5 py-[5px]">
+        <Text className="text-[10px] font-[800] tracking-[1.4px] text-[#65625D]">
+          EMOM
+        </Text>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    minHeight: 46,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#D8D3C8',
-    paddingBottom: 15,
-  },
-  brandMark: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#FF5538',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
-  brandMarkInner: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#F7F4ED',
-  },
-  brand: {
-    flex: 1,
-    color: '#20201E',
-    fontSize: 18,
-    fontWeight: '800',
-    letterSpacing: -0.4,
-  },
-  headerBadge: {
-    borderWidth: 1,
-    borderColor: '#BDB8AE',
-    borderRadius: 99,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  headerBadgeText: {
-    color: '#65625D',
-    fontSize: 10,
-    fontWeight: '800',
-    letterSpacing: 1.4,
-  },
-});

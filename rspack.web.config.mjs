@@ -1,14 +1,38 @@
 import path from 'node:path';
+import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
-import {DefinePlugin, HtmlRspackPlugin} from '@rspack/core';
+import {
+  DefinePlugin,
+  HtmlRspackPlugin,
+  NormalModuleReplacementPlugin,
+} from '@rspack/core';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+const uniwindDirectory = path.dirname(require.resolve('uniwind/package.json'));
+const {generate: generateUniwind} = require('./scripts/generate-uniwind.cjs');
+const uniwindWebStyleSheet = path.join(
+  uniwindDirectory,
+  'dist/module/components/web/createOrderedCSSStyleSheet.js',
+);
+
+class UniwindArtifactsPlugin {
+  apply(compiler) {
+    compiler.hooks.beforeCompile.tapPromise(
+      'UniwindArtifactsPlugin',
+      generateUniwind,
+    );
+  }
+}
 
 export default (_env, argv) => {
   const production = argv.mode === 'production';
 
   return {
     mode: production ? 'production' : 'development',
+    experiments: {
+      css: true,
+    },
     context: __dirname,
     entry: './index.web.js',
     devtool: production ? 'source-map' : 'cheap-module-source-map',
@@ -19,6 +43,7 @@ export default (_env, argv) => {
       clean: true,
     },
     resolve: {
+      fullySpecified: false,
       alias: {
         'react-native$': 'react-native-web',
       },
@@ -26,6 +51,16 @@ export default (_env, argv) => {
     },
     module: {
       rules: [
+        {
+          test: /node_modules[\\/]uniwind[\\/].*\.js$/,
+          resolve: {
+            fullySpecified: false,
+          },
+        },
+        {
+          test: /\.css$/,
+          type: 'css',
+        },
         {
           test: /\.[jt]sx?$/,
           exclude: /node_modules/,
@@ -44,6 +79,15 @@ export default (_env, argv) => {
       ],
     },
     plugins: [
+      new UniwindArtifactsPlugin(),
+      new NormalModuleReplacementPlugin(
+        /^\.\/createOrderedCSSStyleSheet$/,
+        resource => {
+          if (resource.context.includes('react-native-web')) {
+            resource.request = uniwindWebStyleSheet;
+          }
+        },
+      ),
       new DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
       }),
