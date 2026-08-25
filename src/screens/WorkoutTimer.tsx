@@ -106,6 +106,8 @@ export function WorkoutTimer({
         <Text className="text-[13px] text-[#A9A69F]">
           {status === 'complete'
             ? `${rounds} rounds finished. Nice work.`
+            : currentRound === rounds
+            ? 'until your workout is complete'
             : 'until the next minute'}
         </Text>
 

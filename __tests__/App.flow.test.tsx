@@ -14,6 +14,10 @@ function findByLabel(
   return root.find(node => node.props.accessibilityLabel === label);
 }
 
+function findByText(root: ReactTestInstance, text: string): ReactTestInstance {
+  return root.find(node => node.props.children === text);
+}
+
 function press(root: ReactTestInstance, label: string) {
   const target = root.find(
     node =>
@@ -99,8 +103,16 @@ describe('workout flow', () => {
     const root = renderer!.root;
     press(root, '5 rounds');
     press(root, 'Start workout  →');
+    expect(findByText(root, 'until the next minute')).toBeTruthy();
 
-    now += 5 * 60_000;
+    now += 4 * 60_000;
+    act(() => jest.advanceTimersByTime(200));
+    expect(findByLabel(root, 'Round 5 of 5')).toBeTruthy();
+    expect(
+      findByText(root, 'until your workout is complete'),
+    ).toBeTruthy();
+
+    now += 60_000;
     act(() => jest.advanceTimersByTime(200));
     expect(findByLabel(root, 'Workout complete')).toBeTruthy();
     expect(findByLabel(root, 'Round 5 of 5')).toBeTruthy();
