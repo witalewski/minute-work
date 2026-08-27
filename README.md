@@ -9,7 +9,7 @@ A minimal every-minute-on-the-minute (EMOM) workout timer built with React Nativ
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 24.20.0 (LTS)
 - Xcode with an iOS Simulator runtime
 - CocoaPods
 
