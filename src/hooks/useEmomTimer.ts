@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   DEFAULT_ROUNDS,
+  ROUND_OPTIONS,
   getTimerSnapshot,
   ROUND_SECONDS,
 } from '../domain/timer';
@@ -14,6 +15,10 @@ import type { TimerStatus } from '../domain/timer';
 
 export type EmomTimer = {
   rounds: number;
+  developerMode: boolean;
+  roundSeconds: number;
+  roundOptions: readonly number[];
+  toggleDeveloperMode: () => void;
   status: TimerStatus;
   currentRound: number;
   secondsLeft: number;
@@ -28,6 +33,8 @@ export type EmomTimer = {
 };
 
 export function useEmomTimer(): EmomTimer {
+  const [developerMode, setDeveloperMode] = useState(false);
+  const roundSeconds = developerMode ? 10 : ROUND_SECONDS;
   const [rounds, setRounds] = useState(DEFAULT_ROUNDS);
   const [status, setStatus] = useState<TimerStatus>('setup');
   const [currentRound, setCurrentRound] = useState(1);
@@ -42,7 +49,7 @@ export function useEmomTimer(): EmomTimer {
     const elapsedMs = Date.now() - startedAtRef.current;
     const second = Math.floor(elapsedMs / 1000);
     const workElapsedMs = elapsedMs - 3000;
-    const snapshot = getTimerSnapshot(workElapsedMs, rounds);
+    const snapshot = getTimerSnapshot(workElapsedMs, rounds, roundSeconds);
     setCountdown(workElapsedMs < 0 ? 3 - second : null);
     setShowGo(workElapsedMs >= 0 && workElapsedMs < 1000);
 
@@ -53,7 +60,7 @@ export function useEmomTimer(): EmomTimer {
         playFeedback('complete');
       } else if (workElapsedMs < 0) {
         playFeedback('countdown');
-      } else if (snapshot.secondsLeft === ROUND_SECONDS) {
+      } else if (snapshot.secondsLeft === roundSeconds) {
         playFeedback('start');
       } else if (snapshot.currentRound < rounds && snapshot.secondsLeft <= 3) {
         playFeedback('countdown');
@@ -64,10 +71,10 @@ export function useEmomTimer(): EmomTimer {
     setSecondsLeft(snapshot.secondsLeft);
 
     if (snapshot.complete) {
-      elapsedAtPauseRef.current = 3000 + rounds * ROUND_SECONDS * 1000;
+      elapsedAtPauseRef.current = 3000 + rounds * roundSeconds * 1000;
       setStatus('complete');
     }
-  }, [rounds]);
+  }, [rounds, roundSeconds]);
 
   useEffect(() => {
     if (status !== 'running') {
@@ -90,9 +97,9 @@ export function useEmomTimer(): EmomTimer {
     elapsedAtPauseRef.current = 0;
     startedAtRef.current = Date.now();
     setCurrentRound(1);
-    setSecondsLeft(ROUND_SECONDS);
+    setSecondsLeft(roundSeconds);
     setStatus('running');
-  }, []);
+  }, [roundSeconds]);
 
   const pause = useCallback(() => {
     stopFeedback();
@@ -112,19 +119,30 @@ export function useEmomTimer(): EmomTimer {
     setShowGo(false);
     elapsedAtPauseRef.current = 0;
     setCurrentRound(1);
-    setSecondsLeft(ROUND_SECONDS);
+    setSecondsLeft(roundSeconds);
     setStatus('setup');
-  }, []);
+  }, [roundSeconds]);
+
+  const toggleDeveloperMode = useCallback(() => {
+    reset();
+    setDeveloperMode(!developerMode);
+    setRounds(developerMode ? DEFAULT_ROUNDS : 2);
+    setSecondsLeft(developerMode ? ROUND_SECONDS : 10);
+  }, [developerMode, reset]);
 
   return {
     rounds,
+    developerMode,
+    roundSeconds,
+    roundOptions: developerMode ? [1, 2, 3, 5] : ROUND_OPTIONS,
+    toggleDeveloperMode,
     status,
     currentRound,
     secondsLeft,
     countdown,
     showGo,
     roundProgress:
-      status === 'complete' ? 1 : (ROUND_SECONDS - secondsLeft) / ROUND_SECONDS,
+      status === 'complete' ? 1 : (roundSeconds - secondsLeft) / roundSeconds,
     setRounds,
     start,
     pause,

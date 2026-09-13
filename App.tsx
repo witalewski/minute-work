@@ -22,12 +22,17 @@ export default function App() {
           compact ? 'px-5 pt-[22px] ios:pt-[52px]' : 'px-10 pt-8 ios:pt-[58px]'
         }`}
       >
-        <AppHeader />
+        <AppHeader
+          developerMode={timer.developerMode}
+          onToggleDeveloperMode={timer.toggleDeveloperMode}
+        />
 
         {timer.status === 'setup' ? (
           <WorkoutSetup
             compact={compact}
             rounds={timer.rounds}
+            roundSeconds={timer.roundSeconds}
+            roundOptions={timer.roundOptions}
             onRoundsChange={timer.setRounds}
             onStart={timer.start}
           />

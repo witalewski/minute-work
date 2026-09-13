@@ -48,6 +48,96 @@ describe('workout flow', () => {
     jest.useRealTimers();
   });
 
+  it('requires five taps within two seconds and consumes each tap sequence', () => {
+    let renderer: TestRenderer.ReactTestRenderer;
+    act(() => {
+      renderer = TestRenderer.create(<App />);
+    });
+    const root = renderer!.root;
+    for (let tap = 0; tap < 4; tap++) {
+      press(root, 'Minute Work');
+    }
+    expect(findByLabel(root, '10 minute workout')).toBeTruthy();
+    now += 2001;
+    press(root, 'Minute Work');
+    expect(findByLabel(root, '10 minute workout')).toBeTruthy();
+    for (let tap = 0; tap < 4; tap++) {
+      now += 500;
+      press(root, 'Minute Work');
+    }
+    expect(findByLabel(root, '2 minute workout')).toBeTruthy();
+    expect(
+      findByLabel(root, '2 rounds').props.accessibilityState.selected,
+    ).toBe(true);
+    for (const option of [1, 2, 3, 5]) {
+      expect(findByLabel(root, `${option} rounds`)).toBeTruthy();
+    }
+    for (let tap = 0; tap < 4; tap++) {
+      press(root, 'Developer mode');
+    }
+    expect(findByLabel(root, '2 minute workout')).toBeTruthy();
+    press(root, 'Developer mode');
+    expect(findByLabel(root, '10 minute workout')).toBeTruthy();
+    for (const option of [5, 10, 15, 20]) {
+      expect(findByLabel(root, `${option} rounds`)).toBeTruthy();
+    }
+    act(() => renderer!.unmount());
+  });
+
+  it('runs ten-second rounds with cues and stops workouts when changing modes', () => {
+    let renderer: TestRenderer.ReactTestRenderer;
+    act(() => {
+      renderer = TestRenderer.create(<App />);
+    });
+    const root = renderer!.root;
+    const advance = (ms: number) => {
+      now += ms;
+      act(() => jest.advanceTimersByTime(200));
+    };
+    const toggle = (label: string) => {
+      for (let tap = 0; tap < 5; tap++) {
+        press(root, label);
+      }
+    };
+    press(root, 'Start workout  →');
+    toggle('Minute Work');
+    expect(findByLabel(root, 'Workout setup')).toBeTruthy();
+    const calls = jest.mocked(playFeedback).mock.calls.length;
+    advance(60_000);
+    expect(playFeedback).toHaveBeenCalledTimes(calls);
+    press(root, '2 rounds');
+    press(root, 'Start workout  →');
+    advance(3000);
+    expect(findByLabel(root, 'Go!')).toBeTruthy();
+    advance(5000);
+    expect(findByLabel(root, '5 seconds remaining')).toBeTruthy();
+    expect(findByLabel(root, '50% interval complete')).toBeTruthy();
+    advance(2000);
+    expect(playFeedback).toHaveBeenLastCalledWith('countdown');
+    advance(1000);
+    advance(1000);
+    advance(1000);
+    expect(findByLabel(root, 'Round 2 of 2')).toBeTruthy();
+    expect(findByLabel(root, '10 seconds remaining')).toBeTruthy();
+    expect(playFeedback).toHaveBeenLastCalledWith('start');
+    advance(10_000);
+    expect(findByLabel(root, 'Workout complete')).toBeTruthy();
+    expect(playFeedback).toHaveBeenLastCalledWith('complete');
+    press(root, 'Go again');
+    press(root, 'Pause');
+    toggle('Developer mode');
+    expect(findByLabel(root, 'Workout setup')).toBeTruthy();
+    expect(findByLabel(root, '10 minute workout')).toBeTruthy();
+    const finalCalls = jest.mocked(playFeedback).mock.calls.length;
+    advance(60_000);
+    expect(playFeedback).toHaveBeenCalledTimes(finalCalls);
+    expect(stopFeedback).toHaveBeenCalled();
+    press(root, 'Start workout  →');
+    advance(4000);
+    expect(findByLabel(root, '59 seconds remaining')).toBeTruthy();
+    act(() => renderer!.unmount());
+  });
+
   it('selects a workout length, starts it, and resets to setup', () => {
     let renderer: TestRenderer.ReactTestRenderer;
     act(() => {

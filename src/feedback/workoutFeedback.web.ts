@@ -27,9 +27,9 @@ export function playFeedback(cue: WorkoutCue) {
   const audio = context;
   const notes =
     cue === 'complete'
-      ? [523.25, 659.25, 783.99, 1046.5]
+      ? [523.25, 783.99]
       : [cue === 'start' ? 880 : 660];
-  const duration = cue === 'countdown' ? 0.1 : cue === 'start' ? 0.6 : 0.16;
+  const duration = cue === 'countdown' ? 0.1 : cue === 'start' ? 0.6 : 0.2;
   const play = () => {
     if (token !== generation) {
       return;
@@ -39,14 +39,14 @@ export function playFeedback(cue: WorkoutCue) {
         ? 40
         : cue === 'start'
         ? 300
-        : [80, 100, 80, 100, 80, 100, 200],
+        : [80, 180, 240],
     );
     if (!audio) {
       return;
     }
     notes.forEach((frequency, index) => {
-      const start = audio.currentTime + index * 0.18;
-      const length = cue === 'complete' && index === 3 ? 0.36 : duration;
+      const start = audio.currentTime + index * 0.26;
+      const length = cue === 'complete' && index === 1 ? 0.5 : duration;
       const oscillator = audio.createOscillator();
       const gain = audio.createGain();
       oscillator.frequency.value = frequency;

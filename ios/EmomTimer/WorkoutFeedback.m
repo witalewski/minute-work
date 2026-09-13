@@ -24,7 +24,7 @@ RCT_EXPORT_MODULE();
   BOOL complete = [cue isEqualToString:@"complete"];
   BOOL start = [cue isEqualToString:@"start"];
   const double rate = 44100;
-  double duration = complete ? 0.9 : start ? 0.6 : 0.1;
+  double duration = complete ? 0.76 : start ? 0.6 : 0.1;
   uint32_t sampleCount = (uint32_t)(rate * duration);
   uint32_t dataSize = sampleCount * 2;
   uint32_t riffSize = dataSize + 36, formatSize = 16, sampleRate = 44100, byteRate = 88200;
@@ -42,12 +42,12 @@ RCT_EXPORT_MODULE();
   [data appendBytes:&bits length:2];
   [data appendBytes:"data" length:4];
   [data appendBytes:&dataSize length:4];
-  double notes[] = {523.25, 659.25, 783.99, 1046.5};
+  double notes[] = {523.25, 783.99};
   for (uint32_t i = 0; i < sampleCount; i++) {
     double time = i / rate;
-    int note = complete ? MIN(3, (int)(time / 0.18)) : 0;
-    double local = complete ? time - note * 0.18 : time;
-    double length = complete ? (note == 3 ? 0.36 : 0.16) : duration;
+    int note = complete ? MIN(1, (int)(time / 0.26)) : 0;
+    double local = complete ? time - note * 0.26 : time;
+    double length = complete ? (note == 1 ? 0.5 : 0.2) : duration;
     double envelope = MAX(0, MIN(1, MIN(local / 0.008, (length - local) / 0.02)));
     double frequency = complete ? notes[note] : start ? 880 : 660;
     int16_t sample = (int16_t)(sin(2 * M_PI * frequency * local) * envelope * 8000);
@@ -106,10 +106,10 @@ RCT_EXPORT_METHOD(play:(NSString *)cue) {
   if ([cue isEqualToString:@"complete"]) {
     [self restoreIdleTimer];
     NSUInteger token = self.generation;
-    for (int note = 0; note < 4; note++) {
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(note * 0.18 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    for (int note = 0; note < 2; note++) {
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(note * 0.26 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (token != self.generation) { return; }
-        if (note == 3) { [self.strong impactOccurred]; }
+        if (note == 1) { [self.strong impactOccurred]; }
         else { [self.light impactOccurred]; }
       });
     }

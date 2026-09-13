@@ -2,11 +2,12 @@ import React from 'react';
 import { Pressable, Text, View } from 'uniwind/components';
 
 import { ActionButton } from '../components/ActionButton';
-import { ROUND_OPTIONS } from '../domain/timer';
 
 type WorkoutSetupProps = {
   compact: boolean;
   rounds: number;
+  roundSeconds: number;
+  roundOptions: readonly number[];
   onRoundsChange: (rounds: number) => void;
   onStart: () => void;
 };
@@ -14,6 +15,8 @@ type WorkoutSetupProps = {
 export function WorkoutSetup({
   compact,
   rounds,
+  roundSeconds,
+  roundOptions,
   onRoundsChange,
   onStart,
 }: WorkoutSetupProps) {
@@ -56,7 +59,9 @@ export function WorkoutSetup({
             </Text>
           </View>
           <View className="items-center rounded-xl bg-[#F2EEE5] px-[13px] py-2">
-            <Text className="text-lg font-[900] text-[#20201E]">60</Text>
+            <Text className="text-lg font-[900] text-[#20201E]">
+              {roundSeconds}
+            </Text>
             <Text className="text-[7px] font-[800] tracking-[0.8px] text-[#89847B]">
               SEC / ROUND
             </Text>
@@ -64,7 +69,7 @@ export function WorkoutSetup({
         </View>
 
         <View className="mb-[18px] flex-row gap-2.5">
-          {ROUND_OPTIONS.map(option => {
+          {roundOptions.map(option => {
             const selected = rounds === option;
             return (
               <Pressable
