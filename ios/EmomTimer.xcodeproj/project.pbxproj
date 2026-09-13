@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA1234567890123456789001 /* WorkoutFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1234567890123456789002 /* WorkoutFeedback.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-EmomTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-EmomTimer.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.swift */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A6A9F8DA7EB798D24F1DCAA9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		CA1234567890123456789001 /* EmomTimer/WorkoutFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1234567890123456789002 /* EmomTimer/WorkoutFeedback.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CA1234567890123456789002 /* WorkoutFeedback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmomTimer/WorkoutFeedback.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* EmomTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmomTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB01A68108700A75B9A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = EmomTimer/AppDelegate.swift; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EmomTimer/Images.xcassets; sourceTree = "<group>"; };
@@ -26,6 +25,7 @@
 		5709B34CF0A7D63546082F79 /* Pods-EmomTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmomTimer.release.xcconfig"; path = "Target Support Files/Pods-EmomTimer/Pods-EmomTimer.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-EmomTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EmomTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = EmomTimer/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CA1234567890123456789002 /* EmomTimer/WorkoutFeedback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmomTimer/WorkoutFeedback.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -45,7 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07FB01A68108700A75B9A /* AppDelegate.swift */,
-				CA1234567890123456789002 /* WorkoutFeedback.m */,
+				CA1234567890123456789002 /* EmomTimer/WorkoutFeedback.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
@@ -194,9 +194,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EmomTimer/Pods-EmomTimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EmomTimer/Pods-EmomTimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -233,9 +237,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EmomTimer/Pods-EmomTimer-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EmomTimer/Pods-EmomTimer-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -250,7 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.swift in Sources */,
-				CA1234567890123456789001 /* WorkoutFeedback.m in Sources */,
+				CA1234567890123456789001 /* EmomTimer/WorkoutFeedback.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +272,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RG2G9J47BB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = EmomTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -292,6 +301,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RG2G9J47BB;
 				INFOPLIST_FILE = EmomTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
