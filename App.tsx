@@ -19,9 +19,7 @@ export default function App() {
       <StatusBar barStyle="dark-content" backgroundColor="#F7F4ED" />
       <View
         className={`w-full max-w-[980px] flex-1 self-center pb-6 ${
-          compact
-            ? 'px-5 pt-[22px] ios:pt-[52px]'
-            : 'px-10 pt-8 ios:pt-[58px]'
+          compact ? 'px-5 pt-[22px] ios:pt-[52px]' : 'px-10 pt-8 ios:pt-[58px]'
         }`}
       >
         <AppHeader />
@@ -42,6 +40,8 @@ export default function App() {
             currentRound={timer.currentRound}
             secondsLeft={timer.secondsLeft}
             roundProgress={timer.roundProgress}
+            countdown={timer.countdown}
+            showGo={timer.showGo}
             start={timer.start}
             pause={timer.pause}
             resume={timer.resume}

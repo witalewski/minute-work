@@ -13,6 +13,8 @@ type WorkoutTimerProps = {
   currentRound: number;
   secondsLeft: number;
   roundProgress: number;
+  countdown: number | null;
+  showGo: boolean;
   start: () => void;
   pause: () => void;
   resume: () => void;
@@ -27,6 +29,8 @@ export function WorkoutTimer({
   currentRound,
   secondsLeft,
   roundProgress,
+  countdown,
+  showGo,
   start,
   pause,
   resume,
@@ -58,8 +62,7 @@ export function WorkoutTimer({
           </Text>
         </View>
         <Text className="text-xl font-[800] text-[#20201E]">
-          {currentRound}{' '}
-          <Text className="text-[#99948A]">/ {rounds}</Text>
+          {currentRound} <Text className="text-[#99948A]">/ {rounds}</Text>
         </Text>
       </View>
 
@@ -84,7 +87,9 @@ export function WorkoutTimer({
           />
           <Text className="text-[11px] font-[900] tracking-[2px] text-white">
             {status === 'running'
-              ? 'WORK'
+              ? countdown !== null
+                ? 'GET READY'
+                : 'WORK'
               : status === 'paused'
               ? 'PAUSED'
               : 'DONE'}
@@ -92,7 +97,13 @@ export function WorkoutTimer({
         </View>
 
         <Text
-          accessibilityLabel={`${secondsLeft} seconds remaining`}
+          accessibilityLabel={
+            countdown !== null
+              ? `Starting in ${countdown}`
+              : showGo
+              ? 'Go!'
+              : `${secondsLeft} seconds remaining`
+          }
           className={`mt-3 font-[900] tabular-nums text-white ${
             short
               ? 'text-[68px] leading-[78px] tracking-[-3px]'
@@ -101,11 +112,19 @@ export function WorkoutTimer({
               : 'text-[112px] leading-[124px] tracking-[-6px]'
           }`}
         >
-          {formatTime(secondsLeft)}
+          {countdown !== null
+            ? countdown
+            : showGo
+            ? 'Go!'
+            : formatTime(secondsLeft)}
         </Text>
         <Text className="text-[13px] text-[#A9A69F]">
           {status === 'complete'
             ? `${rounds} rounds finished. Nice work.`
+            : countdown !== null
+            ? 'until your first round'
+            : showGo
+            ? 'Your first minute starts now'
             : currentRound === rounds
             ? 'until your workout is complete'
             : 'until the next minute'}
