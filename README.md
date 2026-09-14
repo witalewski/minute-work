@@ -46,6 +46,14 @@ Then build and launch the app in another terminal:
 npm run ios
 ```
 
+For a physical device, force a local build after changing JavaScript or bundler
+configuration so Rock does not reinstall a cached app with an older embedded
+bundle:
+
+```sh
+pnpm ios --destination device --local
+```
+
 ## Run on Android
 
 Start the Re.Pack development server in one terminal with `npm start`, then

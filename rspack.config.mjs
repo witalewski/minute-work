@@ -18,6 +18,22 @@ class UniwindArtifactsPlugin {
   }
 }
 
+class OfflineDevClientPlugin {
+  apply(compiler) {
+    if (compiler.options.devServer) {
+      return;
+    }
+
+    // Re.Pack 5.3 injects its dev client even into embedded debug bundles,
+    // where DevelopmentPlugin does not define __PUBLIC_HOST__ and friends.
+    // Use RN's no-op client when there is no dev server to connect to.
+    new compiler.webpack.NormalModuleReplacementPlugin(
+      /react-native[/\\].*[/\\]HMRClient\.js$/,
+      require.resolve('react-native/Libraries/Utilities/HMRClientProdShim.js'),
+    ).apply(compiler);
+  }
+}
+
 /**
  * Rspack configuration enhanced with Re.Pack defaults for React Native.
  *
@@ -52,5 +68,10 @@ export default Repack.defineRspackConfig({
       ...Repack.getAssetTransformRules(),
     ],
   },
-  plugins: [new UniwindArtifactsPlugin(), new Repack.RepackPlugin()],
+  plugins: [
+    new UniwindArtifactsPlugin(),
+    // Run before Re.Pack replaces HMRClient with its dev-server client.
+    new OfflineDevClientPlugin(),
+    new Repack.RepackPlugin(),
+  ],
 });
