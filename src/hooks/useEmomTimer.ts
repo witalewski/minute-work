@@ -11,6 +11,7 @@ import {
   prepareFeedback,
   stopFeedback,
 } from '../feedback/workoutFeedback';
+import { keepScreenAwake } from '../screen/keepScreenAwake';
 import type { TimerStatus } from '../domain/timer';
 
 export type EmomTimer = {
@@ -85,6 +86,12 @@ export function useEmomTimer(): EmomTimer {
     const timer = setInterval(syncTimer, 200);
     return () => clearInterval(timer);
   }, [status, syncTimer]);
+
+  useEffect(() => {
+    if (status === 'running') {
+      return keepScreenAwake();
+    }
+  }, [status]);
 
   useEffect(() => stopFeedback, []);
 

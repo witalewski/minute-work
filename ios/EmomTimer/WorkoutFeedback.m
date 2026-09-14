@@ -57,11 +57,6 @@ RCT_EXPORT_MODULE();
 }
 
 RCT_EXPORT_METHOD(prepare) {
-  if (!self.workoutActive) {
-    self.previousIdleTimerDisabled = UIApplication.sharedApplication.idleTimerDisabled;
-    self.workoutActive = YES;
-    UIApplication.sharedApplication.idleTimerDisabled = YES;
-  }
   if (!self.light) {
     self.light = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
     self.strong = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
@@ -78,6 +73,18 @@ RCT_EXPORT_METHOD(prepare) {
   [self.strong prepare];
 }
 
+RCT_EXPORT_METHOD(setScreenAwake:(BOOL)awake) {
+  if (awake) {
+    if (!self.workoutActive) {
+      self.previousIdleTimerDisabled = UIApplication.sharedApplication.idleTimerDisabled;
+      self.workoutActive = YES;
+      UIApplication.sharedApplication.idleTimerDisabled = YES;
+    }
+  } else {
+    [self restoreIdleTimer];
+  }
+}
+
 - (void)restoreIdleTimer {
   if (self.workoutActive) {
     UIApplication.sharedApplication.idleTimerDisabled = self.previousIdleTimerDisabled;
@@ -86,7 +93,6 @@ RCT_EXPORT_METHOD(prepare) {
 }
 
 RCT_EXPORT_METHOD(stop) {
-  [self restoreIdleTimer];
   [self cancelPlayback];
 }
 
@@ -104,7 +110,6 @@ RCT_EXPORT_METHOD(play:(NSString *)cue) {
   self.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
   [self.player play];
   if ([cue isEqualToString:@"complete"]) {
-    [self restoreIdleTimer];
     NSUInteger token = self.generation;
     for (int note = 0; note < 2; note++) {
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(note * 0.26 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -2,6 +2,11 @@ import React from 'react';
 import TestRenderer, { act, ReactTestInstance } from 'react-test-renderer';
 
 import App from '../App';
+import { keepScreenAwake } from '../src/screen/keepScreenAwake';
+const mockReleaseScreen = jest.fn();
+jest.mock('../src/screen/keepScreenAwake', () => ({
+  keepScreenAwake: jest.fn(() => mockReleaseScreen),
+}));
 import { playFeedback, stopFeedback } from '../src/feedback/workoutFeedback';
 jest.mock('../src/feedback/workoutFeedback', () => ({
   prepareFeedback: jest.fn(),
@@ -46,6 +51,34 @@ describe('workout flow', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     jest.useRealTimers();
+  });
+
+  it('holds the screen awake only while running and cleans up every exit', () => {
+    let renderer: TestRenderer.ReactTestRenderer;
+    act(() => { renderer = TestRenderer.create(<App />); });
+    const root = renderer!.root;
+    expect(keepScreenAwake).not.toHaveBeenCalled();
+    press(root, 'Start workout  →');
+    expect(keepScreenAwake).toHaveBeenCalledTimes(1);
+    expect(mockReleaseScreen).not.toHaveBeenCalled();
+    now += 4000;
+    act(() => jest.advanceTimersByTime(200));
+    expect(keepScreenAwake).toHaveBeenCalledTimes(1);
+    press(root, 'Pause');
+    expect(mockReleaseScreen).toHaveBeenCalledTimes(1);
+    press(root, 'Resume');
+    expect(keepScreenAwake).toHaveBeenCalledTimes(2);
+    press(root, 'Reset');
+    expect(mockReleaseScreen).toHaveBeenCalledTimes(2);
+    press(root, 'Start workout  →');
+    now += 603_000;
+    act(() => jest.advanceTimersByTime(200));
+    expect(findByLabel(root, 'Workout complete')).toBeTruthy();
+    expect(mockReleaseScreen).toHaveBeenCalledTimes(3);
+    press(root, 'Go again');
+    expect(keepScreenAwake).toHaveBeenCalledTimes(4);
+    act(() => renderer!.unmount());
+    expect(mockReleaseScreen).toHaveBeenCalledTimes(4);
   });
 
   it('requires five taps within two seconds and consumes each tap sequence', () => {
