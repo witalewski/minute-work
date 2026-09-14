@@ -12,6 +12,7 @@ A minimal every-minute-on-the-minute (EMOM) workout timer built with React Nativ
 - Node.js 24.20.0 (LTS)
 - Xcode with an iOS Simulator runtime
 - CocoaPods
+- Android Studio with Android SDK 36 and a Java 17 runtime
 
 ## Run on web
 
@@ -43,6 +44,15 @@ Then build and launch the app in another terminal:
 
 ```sh
 npm run ios
+```
+
+## Run on Android
+
+Start the Re.Pack development server in one terminal with `npm start`, then
+build and launch the native app in another terminal:
+
+```sh
+npm run android
 ```
 
 ## Checks

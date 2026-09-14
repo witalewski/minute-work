@@ -1,16 +1,17 @@
 import path from 'node:path';
-import {createRequire} from 'node:module';
-import {fileURLToPath} from 'node:url';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import {
   DefinePlugin,
   HtmlRspackPlugin,
   NormalModuleReplacementPlugin,
+  CopyRspackPlugin,
 } from '@rspack/core';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 const uniwindDirectory = path.dirname(require.resolve('uniwind/package.json'));
-const {generate: generateUniwind} = require('./scripts/generate-uniwind.cjs');
+const { generate: generateUniwind } = require('./scripts/generate-uniwind.cjs');
 const uniwindWebStyleSheet = path.join(
   uniwindDirectory,
   'dist/module/components/web/createOrderedCSSStyleSheet.js',
@@ -38,7 +39,9 @@ export default (_env, argv) => {
     devtool: production ? 'source-map' : 'cheap-module-source-map',
     output: {
       path: path.join(__dirname, 'dist', 'web'),
-      filename: production ? 'assets/[name].[contenthash].js' : 'assets/[name].js',
+      filename: production
+        ? 'assets/[name].[contenthash].js'
+        : 'assets/[name].js',
       publicPath: '/',
       clean: true,
     },
@@ -47,7 +50,16 @@ export default (_env, argv) => {
       alias: {
         'react-native$': 'react-native-web',
       },
-      extensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.tsx', '.ts', '.jsx', '.js'],
+      extensions: [
+        '.web.tsx',
+        '.web.ts',
+        '.web.jsx',
+        '.web.js',
+        '.tsx',
+        '.ts',
+        '.jsx',
+        '.js',
+      ],
     },
     module: {
       rules: [
@@ -68,9 +80,13 @@ export default (_env, argv) => {
             loader: 'builtin:swc-loader',
             options: {
               jsc: {
-                parser: {syntax: 'typescript', tsx: true},
+                parser: { syntax: 'typescript', tsx: true },
                 transform: {
-                  react: {runtime: 'automatic', development: !production, refresh: false},
+                  react: {
+                    runtime: 'automatic',
+                    development: !production,
+                    refresh: false,
+                  },
                 },
               },
             },
@@ -89,10 +105,15 @@ export default (_env, argv) => {
         },
       ),
       new DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
+        'process.env.NODE_ENV': JSON.stringify(
+          production ? 'production' : 'development',
+        ),
+      }),
+      new CopyRspackPlugin({
+        patterns: [{ from: 'web', to: '.' }],
       }),
       new HtmlRspackPlugin({
-        title: 'Minute Work — EMOM Timer',
+        title: 'Minute Work - EMOM Timer',
         templateContent: `<!doctype html>
 <html lang="en">
   <head>
@@ -100,6 +121,9 @@ export default (_env, argv) => {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#F7F4ED" />
     <meta name="description" content="A focused every-minute-on-the-minute workout timer." />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <style>
       html, body, #root { width: 100%; min-height: 100%; margin: 0; }
       body { background: #F7F4ED; font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
@@ -115,7 +139,7 @@ export default (_env, argv) => {
       port: 3000,
       hot: true,
       historyApiFallback: true,
-      client: {overlay: true},
+      client: { overlay: true },
     },
   };
 };
