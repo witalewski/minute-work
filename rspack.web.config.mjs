@@ -119,7 +119,9 @@ export default (_env, argv) => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#F7F4ED" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F7F4ED" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171512" />
     <meta name="description" content="A focused every-minute-on-the-minute workout timer." />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
@@ -127,6 +129,7 @@ export default (_env, argv) => {
     <style>
       html, body, #root { width: 100%; min-height: 100%; margin: 0; }
       body { background: #F7F4ED; font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      @media (prefers-color-scheme: dark) { body { background: #171512; } }
       button, input { font: inherit; }
       * { box-sizing: border-box; }
     </style>

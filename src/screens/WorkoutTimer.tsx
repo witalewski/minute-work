@@ -47,12 +47,12 @@ export function WorkoutTimer({
         }`}
       >
         <View>
-          <Text className="text-[11px] font-[800] tracking-[1.5px] text-[#6D6962]">
+          <Text className="text-[11px] font-[800] tracking-[1.5px] text-[#6D6962] dark:text-[#A8A39A]">
             CURRENT INTERVAL
           </Text>
           <Text
             accessibilityLabel={`Round ${currentRound} of ${rounds}`}
-            className={`mt-[5px] font-[900] tracking-[-1px] text-[#20201E] ${
+            className={`mt-[5px] font-[900] tracking-[-1px] text-[#20201E] dark:text-[#F2EFE8] ${
               short ? 'text-[26px]' : 'text-[30px]'
             }`}
           >
@@ -61,13 +61,13 @@ export function WorkoutTimer({
               : `Round ${currentRound}`}
           </Text>
         </View>
-        <Text className="text-xl font-[800] text-[#20201E]">
-          {currentRound} <Text className="text-[#99948A]">/ {rounds}</Text>
+        <Text className="text-xl font-[800] text-[#20201E] dark:text-[#F2EFE8]">
+          {currentRound} <Text className="text-[#99948A] dark:text-[#8A857C]">/ {rounds}</Text>
         </Text>
       </View>
 
       <View
-        className={`items-center justify-center rounded-3xl bg-[#20201E] ${
+        className={`items-center justify-center rounded-3xl bg-[#20201E] dark:bg-[#26241F] ${
           short
             ? 'min-h-[250px] p-[18px]'
             : compact
@@ -131,7 +131,7 @@ export function WorkoutTimer({
         </Text>
 
         <View
-          className={`h-[5px] w-full overflow-hidden rounded bg-[#41403D] ${
+          className={`h-[5px] w-full overflow-hidden rounded bg-[#41403D] dark:bg-[#45423C] ${
             short ? 'mt-5' : 'mt-8'
           }`}
         >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, useWindowDimensions } from 'react-native';
+import { StatusBar, useColorScheme, useWindowDimensions } from 'react-native';
 import { View } from 'uniwind/components';
 
 import { AppFooter } from './src/components/AppFooter';
@@ -10,13 +10,17 @@ import { WorkoutTimer } from './src/screens/WorkoutTimer';
 
 export default function App() {
   const { height, width } = useWindowDimensions();
+  const dark = useColorScheme() === 'dark';
   const compact = width < 520;
   const short = height < 750;
   const timer = useEmomTimer();
 
   return (
-    <View className="min-h-full flex-1 bg-[#F7F4ED]">
-      <StatusBar barStyle="dark-content" backgroundColor="#F7F4ED" />
+    <View className="min-h-full flex-1 bg-[#F7F4ED] dark:bg-[#171512]">
+      <StatusBar
+        barStyle={dark ? 'light-content' : 'dark-content'}
+        backgroundColor={dark ? '#171512' : '#F7F4ED'}
+      />
       <View
         className={`w-full max-w-[980px] flex-1 self-center pb-6 ${
           compact ? 'px-5 pt-[22px] ios:pt-[52px]' : 'px-10 pt-8 ios:pt-[58px]'

@@ -16,12 +16,12 @@ export function ActionButton({
     variant === 'primary'
       ? 'border-[#FF5538] bg-[#FF5538]'
       : variant === 'danger'
-      ? 'border-[#CCC7BE] bg-transparent'
-      : 'border-[#CCC7BE] bg-white';
+      ? 'border-[#CCC7BE] bg-transparent dark:border-[#403C36]'
+      : 'border-[#CCC7BE] bg-white dark:border-[#403C36] dark:bg-[#26231F]';
   const textVariant =
     variant === 'primary'
       ? 'text-white'
-      : 'text-[#292825]';
+      : 'text-[#292825] dark:text-[#F2EFE8]';
 
   return (
     <Pressable
