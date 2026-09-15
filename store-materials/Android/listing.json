@@ -1,0 +1,16 @@
+{
+  "locale": "en-US",
+  "name": "Minute Work - EMOM Timer",
+  "category": "Health & Fitness",
+  "support_email": "{{SUPPORT_EMAIL}}",
+  "privacy_policy_url": "{{PRIVACY_POLICY_URL}}",
+  "website_url": "{{WEBSITE_URL}}",
+  "publisher_legal_name": "{{PUBLISHER_LEGAL_NAME}}",
+  "pricing": "OWNER_DECISION",
+  "countries": "OWNER_DECISION",
+  "application_id": "com.minutework.emomtimer",
+  "short_description": "EMOM timer with 5–20 minute sessions, countdown cues and pause controls.",
+  "full_description": "Show up every minute.\n\nMinute Work is a focused timer for every-minute-on-the-minute (EMOM) sessions. Choose 5, 10, 15 or 20 rounds, get ready with a three-second countdown, and follow one 60-second interval at a time.\n\nKEEP YOUR SESSION SIMPLE\n• A large countdown and clear round counter.\n• Sound and vibration cues for countdowns, round starts and completion.\n• Pause when you need a break, resume when you are ready, or reset to setup.\n• A progress bar for the current minute.\n• Light and dark appearances that follow your device setting.\n• An in-app guide explaining EMOM timing and the controls.\n• No account, advertising or in-app purchases.\n\nONE MINUTE. ONE JOB.\nFollow the exercise plan prescribed by your qualified professional. Start your prescribed repetitions at the beginning of each minute, then rest for the time remaining. The timer keeps counting during rest; it does not count repetitions or decide when you should stop exercising.\n\nMinute Work is a timing tool. It does not provide medical advice, training advice or a personalised exercise plan.",
+  "contains_ads": false,
+  "in_app_purchases": false
+}

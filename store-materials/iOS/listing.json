@@ -1,0 +1,22 @@
+{
+  "locale": "en-US",
+  "name": "Minute Work - EMOM Timer",
+  "category": "Health & Fitness",
+  "support_email": "{{SUPPORT_EMAIL}}",
+  "privacy_policy_url": "{{PRIVACY_POLICY_URL}}",
+  "website_url": "{{WEBSITE_URL}}",
+  "publisher_legal_name": "{{PUBLISHER_LEGAL_NAME}}",
+  "pricing": "OWNER_DECISION",
+  "countries": "OWNER_DECISION",
+  "subtitle": "One minute. One job.",
+  "promotional_text": "Choose your rounds, follow the countdown and focus on one minute at a time. A simple EMOM timer with sound cues, pause controls and a dark appearance.",
+  "keywords": "interval,workout,fitness,countdown,exercise,rounds,gym,training,stopwatch",
+  "description": "Show up every minute.\n\nMinute Work is a focused timer for every-minute-on-the-minute (EMOM) sessions. Choose 5, 10, 15 or 20 rounds, get ready with a three-second countdown, and follow one 60-second interval at a time.\n\nKEEP YOUR SESSION SIMPLE\n• A large countdown and clear round counter.\n• Sound and vibration cues for countdowns, round starts and completion.\n• Pause when you need a break, resume when you are ready, or reset to setup.\n• A progress bar for the current minute.\n• Light and dark appearances that follow your device setting.\n• An in-app guide explaining EMOM timing and the controls.\n• No account, advertising or in-app purchases.\n\nONE MINUTE. ONE JOB.\nFollow the exercise plan prescribed by your qualified professional. Start your prescribed repetitions at the beginning of each minute, then rest for the time remaining. The timer keeps counting during rest; it does not count repetitions or decide when you should stop exercising.\n\nMinute Work is a timing tool. It does not provide medical advice, training advice or a personalised exercise plan.",
+  "support_url": "{{SUPPORT_URL}}",
+  "copyright": "2026 {{COPYRIGHT_OWNER}}",
+  "sku": "minute-work-ios",
+  "bundle_id": "{{REGISTERED_IOS_BUNDLE_ID}}",
+  "primary_category": "Health & Fitness",
+  "secondary_category": "Utilities (optional)",
+  "version": "1.0"
+}

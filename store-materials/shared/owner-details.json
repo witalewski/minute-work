@@ -1,0 +1,15 @@
+{
+  "publisher_legal_name": "{{PUBLISHER_LEGAL_NAME}}",
+  "copyright_owner": "{{COPYRIGHT_OWNER}}",
+  "support_email": "{{SUPPORT_EMAIL}}",
+  "website_url": "{{WEBSITE_URL}}",
+  "support_url": "{{SUPPORT_URL}}",
+  "privacy_policy_url": "{{PRIVACY_POLICY_URL}}",
+  "review_contact_name": "{{REVIEW_CONTACT_NAME}}",
+  "review_contact_email": "{{REVIEW_CONTACT_EMAIL}}",
+  "review_contact_phone": "{{REVIEW_CONTACT_PHONE}}",
+  "registered_ios_bundle_id": "{{REGISTERED_IOS_BUNDLE_ID}}",
+  "effective_date": "{{EFFECTIVE_DATE}}",
+  "support_email_provider": "{{SUPPORT_EMAIL_PROVIDER}}",
+  "support_retention_period": "{{SUPPORT_RETENTION_PERIOD}}"
+}

@@ -1,0 +1,16 @@
+Minute Work is an EMOM exercise timer. No sign-in, subscription, purchase, special account or backend access is required.
+
+Review steps:
+1. Launch the app. The default is 10 rounds of 60 seconds.
+2. Select 5 rounds and tap Start workout.
+3. Observe the 3-second countdown, followed by Go! and the running timer.
+4. Tap Pause, then Resume. Tap Reset to return to setup.
+5. Tap What is EMOM? to inspect the guide; Close dismisses it. Opening the guide does not pause a running timer.
+6. Change the device appearance to test the light and dark themes.
+7. For completion, let a normal five-round session finish, then tap Go again.
+
+The app times a user's session and does not count repetitions, measure health data, or prescribe exercise. Sound/vibration depend on device capabilities and settings. Test cues on a physical device.
+
+The current source contains a developer shortcut: tap the Minute Work header five times within two seconds to switch to 10-second rounds (default two rounds); repeat to exit. This shortcut changes the available rounds and is not advertised in store copy. If removed before release, remove this paragraph from review notes. Final acceptance and screenshots should use normal 60-second rounds.
+
+Review contact: {{REVIEW_CONTACT_NAME}}, {{REVIEW_CONTACT_EMAIL}}, {{REVIEW_CONTACT_PHONE}}.
