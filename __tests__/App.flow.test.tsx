@@ -53,6 +53,20 @@ describe('workout flow', () => {
     jest.useRealTimers();
   });
 
+  it('opens and closes the guide while preserving the selected workout', () => {
+    let renderer: TestRenderer.ReactTestRenderer;
+    act(() => { renderer = TestRenderer.create(<App />); });
+    const root = renderer!.root;
+    press(root, '5 rounds');
+    press(root, 'About EMOM training');
+    expect(findByText(root, 'Start with a personal trainer')).toBeTruthy();
+    expect(findByText(root, '5:00 · Workout complete')).toBeTruthy();
+    press(root, 'Close EMOM guide');
+    expect(root.findAll(node => node.props.children === 'Start with a personal trainer')).toHaveLength(0);
+    expect(findByLabel(root, '5 minute workout')).toBeTruthy();
+    act(() => renderer!.unmount());
+  });
+
   it('holds the screen awake only while running and cleans up every exit', () => {
     let renderer: TestRenderer.ReactTestRenderer;
     act(() => { renderer = TestRenderer.create(<App />); });
